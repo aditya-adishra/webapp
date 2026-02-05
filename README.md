@@ -1,16 +1,28 @@
-# myapp
+# 🚀 Flutter WebView App with Lottie Splash
 
-A new Flutter project.
+A modern **Flutter Android application** that wraps a dynamic website inside a **WebView**, enhanced with a **smooth Lottie splash screen** and a clean user experience.
 
-## Getting Started
+Perfect for:
+- Converting websites into Android apps
+- Startup / business apps
+- Portfolio or SaaS web apps
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## ✨ Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 🌐 **WebView Integration**
+  - Loads any live/dynamic website
+  - JavaScript enabled
+- 🎬 **Lottie Splash Screen**
+  - Smooth animation on app launch
+  - No black screen between splash & website
+- 🎨 **Custom App Icon**
+- ⚡ Fast & lightweight
+- 🔁 Website updates reflect instantly (no app update needed)
+- 🤖 Android-ready (APK via GitHub Actions)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 📱 All Rights are reserved to Aditya Mishra .
+
