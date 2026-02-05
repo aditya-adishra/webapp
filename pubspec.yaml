@@ -1,5 +1,5 @@
 name: webview_app
-description: Flutter WebView APK with Lottie Splash
+description: Flutter WebView APK with Lottie Splash and App Icon
 
 publish_to: 'none'
 
@@ -16,9 +16,16 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/lottie/splash.json
+    - assets/logo.png
+
+flutter_icons:
+  android: true
+  ios: false
+  image_path: "assets/logo.png"

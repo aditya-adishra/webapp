@@ -6,8 +6,6 @@ void main() {
   runApp(const MyApp());
 }
 
-/* ---------------- APP ROOT ---------------- */
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,67 +13,36 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(), // 👈 pehle splash
+      home: SplashWrapper(),
     );
   }
 }
 
-/* ---------------- SPLASH SCREEN ---------------- */
-
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashWrapper extends StatefulWidget {
+  const SplashWrapper({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashWrapper> createState() => _SplashWrapperState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    // Animation complete hone ke baad WebView open
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const WebApp()),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white, // branding color rakh sakte ho
-      body: Center(
-        child: Lottie.asset(
-          'assets/lottie/splash.json',
-          width: 220,
-          repeat: false,
-        ),
-      ),
-    );
-  }
-}
-
-/* ---------------- WEBVIEW APP ---------------- */
-
-class WebApp extends StatefulWidget {
-  const WebApp({super.key});
-
-  @override
-  State<WebApp> createState() => _WebAppState();
-}
-
-class _WebAppState extends State<WebApp> {
-  late final WebViewController controller;
+class _SplashWrapperState extends State<SplashWrapper> {
+  late final WebViewController _controller;
+  bool _isLoaded = false;
 
   @override
   void initState() {
     super.initState();
 
-    controller = WebViewController()
+    _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000)) // 🔥 no black bg
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (url) {
+            setState(() => _isLoaded = true);
+          },
+        ),
+      )
       ..loadRequest(
         Uri.parse("https://payhello.netlify.app/"),
       );
@@ -84,8 +51,22 @@ class _WebAppState extends State<WebApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: WebViewWidget(controller: controller),
+      body: Stack(
+        children: [
+          // WebView (loads in background)
+          WebViewWidget(controller: _controller),
+
+          // Splash overlay (hide after load)
+          if (!_isLoaded)
+            Container(
+              color: Colors.white,
+              alignment: Alignment.center,
+              child: Lottie.asset(
+                'assets/lottie/splash.json',
+                width: 200,
+              ),
+            ),
+        ],
       ),
     );
   }
